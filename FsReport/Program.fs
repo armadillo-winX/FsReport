@@ -116,7 +116,7 @@ let rec startNewReport (reportRootDir: string) =
         Console.ReadKey() |> ignore
         startNewReport reportRootDir
 
-let rec configureFileAssociation() =
+let rec configureFileAssociation () =
     let fileAssociationDictionary = SettingsConfigurator.getFileAssociationDictionary()
     printfn ""
     printfn "[0] Add New Extension Association"
