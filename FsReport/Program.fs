@@ -121,6 +121,7 @@ let rec configureFileAssociation () =
     printfn ""
     printfn "[0] Add New Extension Association"
     if fileAssociationDictionary.Count > 0 then printfn "[1] Change Associated Application"
+    printfn "[x] Cancel"
     let operationInput = Console.ReadLine()
     if operationInput = "0" then
         printfn "Enter extension to add:"
@@ -140,6 +141,8 @@ let rec configureFileAssociation () =
             printfn "Extension '%s' is already set up" extension
             printfn "Please try again"
             configureFileAssociation()
+    elif operationInput.ToLower() = "x" then
+        printfn "Canceld"
     elif fileAssociationDictionary.Count > 0 && operationInput = "1" then
         printfn ""
         let extensnionArray = new ResizeArray<string>()
