@@ -68,7 +68,11 @@ let rec makeReportFile (reportRootDir: string) (reportDir) =
 
 let openReportFile (reportFilePath: string) =
     printfn ""
-    printfn "%s" reportFilePath
+    let openResult = ReportFileHandler.openReportFile reportFilePath
+    if openResult then
+        printfn "\"%s\" Opened!\n" reportFilePath
+    else
+        printfn "To automatically open the report file you created, please configure the application that will open the file."
 
 let rec startNewReport (reportRootDir: string) =
     let subjectDirNameDictionary = SettingsConfigurator.getReportDirNameDictionary()
