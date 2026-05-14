@@ -227,7 +227,7 @@ while true do
     elif operationInput = "0" then
         startNewReport reportRootDirectory
     elif operationInput = "3" then
-        printfn "Open File Config."
+        configureFileAssociation()
     elif operationInput = "4" then
         addTemplateFile false
     elif operationInput = "5" then
