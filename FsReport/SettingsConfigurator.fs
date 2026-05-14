@@ -49,3 +49,10 @@ let getFileAssociationDictionary () =
         serializeOption.WriteIndented <- true
         fileAssociationDictionary <- JsonSerializer.Deserialize<Dictionary<string, string>>(config, serializeOption)
     fileAssociationDictionary
+
+let saveFileAssociationConfig (fileAssociationDictionary: Dictionary<string, string>) =
+    let serializeOption = new JsonSerializerOptions()
+    serializeOption.Encoder <- JavaScriptEncoder.Create(UnicodeRanges.All)
+    serializeOption.WriteIndented <- true
+    let jsonData = JsonSerializer.Serialize(fileAssociationDictionary, serializeOption)
+    File.WriteAllText(PathInfo.openFileConfig, jsonData)
