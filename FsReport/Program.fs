@@ -33,7 +33,12 @@ let createReportDirectory (reportRootDir: string) (subjectDirName: string) =
         ReportFileHandler.makeFinalReportDir reportRootDir subjectDirName
     else
         printfn "Enter report directory name:"
-        let dirNameInput = Console.ReadLine()
+        let mutable dirNameInput = Console.ReadLine()
+        while isValidObjectName dirNameInput = false do
+            printfn "'%s' is invalid directory name." dirNameInput
+            printfn "Cannot use : /?<>\\:*|\""
+            printfn "Enter report directory name again:"
+            dirNameInput <- Console.ReadLine()
         ReportFileHandler.makeReportDir reportRootDir subjectDirName dirNameInput
 
 let rec makeReportFile (reportRootDir: string) (reportDir) =
