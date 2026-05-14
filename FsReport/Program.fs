@@ -163,6 +163,10 @@ let rec configureFileAssociation () =
         let command = Console.ReadLine()
         fileAssociationDictionary.Add(extension, command)
         SettingsConfigurator.saveFileAssociationConfig fileAssociationDictionary
+    else 
+        printfn "Invalid operation."
+        printfn "Please try again."
+        configureFileAssociation()
 
 let addTemplateFile (autoOverwrite: bool) =
     let mutable answerInput = "y"
