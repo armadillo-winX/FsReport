@@ -10,6 +10,11 @@ let printVersionInfo () =
     printfn "System: %s" VersionInfo.systemVersion
     printfn "Runtime: %s\n" VersionInfo.runtimeVersion
 
+let isValidObjectName (objectName: string) =
+    let invalidLetters = [ '/'; '?'; '<'; '>'; '\\'; ':'; '*'; '|'; '"' ]
+    let result = String.exists (fun c -> List.contains c invalidLetters) objectName
+    if result then false else true
+
 let createReportDirectory (reportRootDir: string) (subjectDirName: string) =
     if Directory.Exists($"{reportRootDir}\\{subjectDirName}") then 
         Directory.CreateDirectory($"{reportRootDir}\\{subjectDirName}") |> ignore
