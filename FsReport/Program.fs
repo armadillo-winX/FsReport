@@ -127,7 +127,7 @@ let rec configureFileAssociation () =
         let mutable extension = Console.ReadLine()
         if extension.FirstOrDefault() <> '.' then extension <- $".{extension}"
         if fileAssociationDictionary.ContainsKey(extension) = false then
-            printfn "Enter executable file path or command name:"
+            printfn "Enter executable file path:"
             let command = Console.ReadLine()
             fileAssociationDictionary.Add(extension, command)
             SettingsConfigurator.saveFileAssociationConfig fileAssociationDictionary
@@ -159,7 +159,7 @@ let rec configureFileAssociation () =
             parseResult <- result
             index <- i
         let extension = extensnionArray[index]
-        printfn "Enter executable file path or command name:"
+        printfn "Enter executable file path:"
         let command = Console.ReadLine()
         fileAssociationDictionary.Add(extension, command)
         SettingsConfigurator.saveFileAssociationConfig fileAssociationDictionary
