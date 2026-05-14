@@ -56,7 +56,12 @@ let rec makeReportFile (reportRootDir: string) (reportDir) =
         let selectedTemplateFile = templateFiles[index]
         let templateFileName = Path.GetFileName(selectedTemplateFile)
         printfn "Enter report file name (Without Extension):"
-        let reportFileName = Console.ReadLine()
+        let mutable reportFileName = Console.ReadLine()
+        while isValidObjectName reportFileName do
+            printfn "'%s' is invalid file name." reportFileName
+            printfn "Cannot use : /?<>\\:*|\""
+            printfn "Enter report file name again (Without Extension):"
+            reportFileName <- Console.ReadLine()
         ReportFileHandler.makeReportFileFromTemplate reportDir templateFileName reportFileName
     else
         printfn "Invalid selection."
