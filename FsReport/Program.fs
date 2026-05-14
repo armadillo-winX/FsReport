@@ -154,6 +154,10 @@ let rec configureFileAssociation () =
         while parseResult || index < 0 || fileAssociationDictionary.Count <= index do
             printfn "Invalid selection."
             printfn "Select extension to change configuration again:"
+            input <- Console.ReadLine()
+            let result, i = Int32.TryParse(input)
+            parseResult <- result
+            index <- i
         let extension = extensnionArray[index]
         printfn "Enter executable file path or command name:"
         let command = Console.ReadLine()
