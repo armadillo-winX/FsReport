@@ -164,7 +164,7 @@ let rec configureFileAssociation () =
         let extension = extensnionArray[index]
         printfn "Enter executable file path:"
         let command = Console.ReadLine()
-        fileAssociationDictionary.Add(extension, command)
+        fileAssociationDictionary[extension] <- command
         SettingsConfigurator.saveFileAssociationConfig fileAssociationDictionary
     else 
         printfn "Invalid operation."
