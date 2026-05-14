@@ -166,6 +166,7 @@ let rec configureFileAssociation () =
         let command = Console.ReadLine()
         fileAssociationDictionary[extension] <- command
         SettingsConfigurator.saveFileAssociationConfig fileAssociationDictionary
+        printfn "Configuration updated!\n"
     else 
         printfn "Invalid operation."
         printfn "Please try again."
