@@ -1,0 +1,4 @@
+%Title%
+%author%
+
+FsReport Sample Template File.
