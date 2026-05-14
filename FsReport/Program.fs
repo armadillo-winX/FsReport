@@ -131,6 +131,11 @@ let rec configureFileAssociation () =
             let command = Console.ReadLine()
             fileAssociationDictionary.Add(extension, command)
             SettingsConfigurator.saveFileAssociationConfig fileAssociationDictionary
+            printfn "Added!"
+            printfn "Add another extension association ? [y/N]"
+            let input = Console.ReadLine().ToLower()
+            if input = "y" then
+                configureFileAssociation()
         else
             printfn "Extension '%s' is already set up" extension
             printfn "Please try again"
