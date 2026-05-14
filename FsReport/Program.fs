@@ -72,7 +72,7 @@ let openReportFile (reportFilePath: string) =
     if openResult then
         printfn "\"%s\" Opened!\n" reportFilePath
     else
-        printfn "To automatically open the report file you created, please configure the application that will open the file.\n"
+        printfn "To open the report file automatically, please configure the application that will open the file.\n"
 
 let rec startNewReport (reportRootDir: string) =
     let subjectDirNameDictionary = SettingsConfigurator.getReportDirNameDictionary()
