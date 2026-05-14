@@ -154,7 +154,7 @@ let rec configureFileAssociation () =
         printfn "Select extension to change configuration:"
         let mutable input = Console.ReadLine()
         let mutable parseResult, index = Int32.TryParse(input)
-        while parseResult || index < 0 || fileAssociationDictionary.Count <= index do
+        while parseResult  = false || index < 0 || fileAssociationDictionary.Count <= index do
             printfn "Invalid selection."
             printfn "Select extension to change configuration again:"
             input <- Console.ReadLine()
