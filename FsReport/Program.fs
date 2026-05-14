@@ -1,5 +1,6 @@
 ﻿open System
 open System.IO
+open System.Linq
 
 let printVersionInfo () =
     printfn ""
@@ -115,6 +116,44 @@ let rec startNewReport (reportRootDir: string) =
         Console.ReadKey() |> ignore
         startNewReport reportRootDir
 
+let rec configureFileAssociation() =
+    let fileAssociationDictionary = SettingsConfigurator.getFileAssociationDictionary()
+    printfn ""
+    printfn "[0] Add New Extension Association"
+    printfn "[1] Change Associated Application"
+    let operationInput = Console.ReadLine()
+    if operationInput = "0" then
+        printfn "Enter extension to add:"
+        let mutable extension = Console.ReadLine()
+        if extension.FirstOrDefault() <> '.' then extension <- $".{extension}"
+        if fileAssociationDictionary.ContainsKey(extension) = false then
+            printfn "Enter executable file path or command name:"
+            let command = Console.ReadLine()
+            fileAssociationDictionary.Add(extension, command)
+            SettingsConfigurator.saveFileAssociationConfig fileAssociationDictionary
+        else
+            printfn "Extension '%s' is already set up" extension
+            printfn "Please try again"
+            configureFileAssociation()
+    elif operationInput = "1" then
+        printfn ""
+        let extensnionArray = new ResizeArray<string>()
+        let mutable i = 0
+        for item in fileAssociationDictionary do
+            printfn "[%d] %s" i item.Key
+            extensnionArray.Add(item.Key)
+            i <- i + 1
+        printfn "Select extension to change configuration:"
+        let mutable input = Console.ReadLine()
+        let mutable parseResult, index = Int32.TryParse(input)
+        while parseResult || index < 0 || fileAssociationDictionary.Count <= index do
+            printfn "Invalid selection."
+            printfn "Select extension to change configuration again:"
+        let extension = extensnionArray[index]
+        printfn "Enter executable file path or command name:"
+        let command = Console.ReadLine()
+        fileAssociationDictionary.Add(extension, command)
+        SettingsConfigurator.saveFileAssociationConfig fileAssociationDictionary
 
 let addTemplateFile (autoOverwrite: bool) =
     let mutable answerInput = "y"
