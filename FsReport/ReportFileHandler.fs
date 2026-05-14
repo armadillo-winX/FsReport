@@ -1,5 +1,6 @@
 module ReportFileHandler
 
+open System.Diagnostics
 open System.IO
 
 let makeReportDir (reportRootDir: string) (subjectDirName: string) (directoryName) =
@@ -28,3 +29,16 @@ let makeReportFileFromTemplate (reportDir: string) (templateFileName: string) (r
     let reportFilePath = $"{reportDir}\\{reportFileNameWithoutExtension}{extension}"
     File.Copy(templateFilePath, reportFilePath)
     reportFilePath
+
+let openReportFile (reportFilePath: string) =
+    let fileAssociationDictionary = SettingsConfigurator.getFileAssociationDictionary()
+    let reportFileExtension = Path.GetExtension(reportFilePath)
+    let result, associatedApplicationPath = fileAssociationDictionary.TryGetValue(reportFileExtension)
+    if result = true then
+        let psi = new ProcessStartInfo()
+        psi.FileName <-  associatedApplicationPath
+        psi.Arguments <- reportFilePath
+        Process.Start(psi) |> ignore
+        true
+    else
+        false
