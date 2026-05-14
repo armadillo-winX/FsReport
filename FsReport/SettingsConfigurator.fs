@@ -39,3 +39,13 @@ let saveReportDirNameConfig (reportDirNameDictionary: Dictionary<string, string>
     serializeOption.WriteIndented <- true
     let jsonData = JsonSerializer.Serialize(reportDirNameDictionary, serializeOption)
     File.WriteAllText(reportDirNameConfig, jsonData)
+
+let getFileAssociationDictionary () =
+    let mutable fileAssociationDictionary = new Dictionary<string, string>()
+    if File.Exists(PathInfo.openFileConfig) then
+        let config = File.ReadAllText(PathInfo.openFileConfig)
+        let serializeOption = new JsonSerializerOptions()
+        serializeOption.Encoder <- JavaScriptEncoder.Create(UnicodeRanges.All)
+        serializeOption.WriteIndented <- true
+        fileAssociationDictionary <- JsonSerializer.Deserialize<Dictionary<string, string>>(config, serializeOption)
+    fileAssociationDictionary
