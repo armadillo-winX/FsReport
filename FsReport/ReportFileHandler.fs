@@ -37,7 +37,7 @@ let openReportFile (reportFilePath: string) =
     if result = true then
         let psi = new ProcessStartInfo()
         psi.FileName <-  associatedApplicationPath
-        psi.Arguments <- reportFilePath
+        psi.Arguments <- $"\"{reportFilePath}\""
         Process.Start(psi) |> ignore
         true
     else
